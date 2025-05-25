@@ -1,0 +1,54 @@
+
+
+<!-- src/main/resources/templates/employees.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+<h1>Employee Tracker</h1>
+
+<!--<form th:action="@{/employees/save}" th:object="${employee}" method="post">-->
+<!--    <input type="text" th:field="*{name}" placeholder="Name"/>-->
+<!--    <input type="text" th:field="*{position}" placeholder="Position"/>-->
+<!--    <input type="number" th:field="*{salary}" placeholder="Salary"/>-->
+<!--    <input type="date" th:field="*{hireDate}" />-->
+<!--    <input type="text" th:field="*{department}" placeholder="Department"/>-->
+<!--    <input type="checkbox" th:field="*{active}"/> Active-->
+<!--    <button type="submit">Save</button>-->
+<!--</form>-->
+
+
+<form th:action="@{/employees/save}" th:object="${employee}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    Name: <input type="text" th:field="*{name}" /><br>
+    Position: <input type="text" th:field="*{position}" /><br>
+    Salary: <input type="number" th:field="*{salary}" step="0.01" /><br>
+    Hire Date: <input type="date" th:field="*{hireDate}" /><br>
+    Department: <input type="text" th:field="*{department}" /><br>
+    Active: <input type="checkbox" th:field="*{active}" /><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<table>
+    <tr>
+        <th>Name</th><th>Position</th><th>Salary</th><th>Hire Date</th><th>Department</th><th>Active</th><th>Actions</th>
+    </tr>
+    <tr th:each="emp : ${employees}">
+        <td th:text="${emp.name}">Name</td>
+        <td th:text="${emp.position}">Position</td>
+        <td th:text="${emp.salary}">Salary</td>
+        <td th:text="${emp.hireDate}">Hire Date</td>
+        <td th:text="${emp.department}">Department</td>
+        <td th:text="${emp.active}">Active</td>
+        <td>
+            <a th:href="@{'/employees/edit/' + ${emp.id}}">Edit</a> |
+            <a th:href="@{'/employees/delete/' + ${emp.id}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
